@@ -1,10 +1,12 @@
 import React from 'react'
 
-import { ExampleComponent } from 'react-pdfjs-viewer'
-import 'react-pdfjs-viewer/dist/index.css'
+import { PDFJSViewer } from 'react-pdfjs-viewer'
+// import 'react-pdfjs-viewer/dist/index.css'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <div id="asd" style={{ height: "100vh", width: "100vw" }}>
+    <PDFJSViewer url="/test.pdf" />
+  </div >
 }
 
 export default App
