@@ -20,9 +20,11 @@ import {
 } from './EventTypes'
 interface Props {
   url: string;
+  initialPage?: number;
   pageInfo?: {
     currentPage: number; setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   };
+  initialScale?: number;
   scaleInfo?: {
     currentScale: number; setCurrentScale: React.Dispatch<React.SetStateAction<number>>;
   };
@@ -37,8 +39,6 @@ interface Props {
   onUpdateViewArea?: (payload: UpdateViewAreaEventPayload) => void;
   onOptionalContentConfigChanged?: (payload: OptionalContentConfigChangedEventPayload) => void;
   onSpreadModeChanged?: (payload: SpreadModeChangedEventPayload) => void;
-  initialScale?: number;
-  initialPage?: number;
 }
 
 export const PDFJSViewer: React.FC<Props> = ({
