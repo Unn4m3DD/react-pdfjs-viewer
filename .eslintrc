@@ -4,7 +4,8 @@
     "standard",
     "standard-react",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:react-hooks/recommended"
   ],
   "env": {
     "node": true

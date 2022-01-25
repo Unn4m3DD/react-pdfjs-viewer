@@ -91,9 +91,15 @@ export interface PDFEventPayload {
 
 // export interface XfaLayerRenderedEventPayload extends PDFEventPayload {}
 
-// export interface PageRenderedEventPayload extends PDFEventPayload {}
+export interface PageRenderedEventPayload extends PDFEventPayload {
+  cssTransform: boolean;
+  error: any;
+  pageNumber: number;
+  source: PDFViewer;
+  timestamp: number;
+}
 
-// export interface PageRenderEventPayload extends PDFEventPayload {}
+export interface PageRenderEventPayload extends PDFEventPayload { }
 
 export type BaseViewerInitEventPayload = PDFEventPayload
 
@@ -142,7 +148,7 @@ export interface OptionalContentConfigChangedEventPayload extends PDFEventPayloa
   promise: Promise<any>;
 }
 
-type PDFSpreadMode = { UNKNOWN: -1; NONE: 0; ODD: 1; EVEN: 2}
+type PDFSpreadMode = { UNKNOWN: -1; NONE: 0; ODD: 1; EVEN: 2 }
 export interface SpreadModeChangedEventPayload extends PDFEventPayload {
   mode: PDFSpreadMode;
 }

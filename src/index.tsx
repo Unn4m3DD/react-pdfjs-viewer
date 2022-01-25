@@ -15,10 +15,17 @@ import {
   ScaleChangingEventPayload,
   UpdateViewAreaEventPayload,
   OptionalContentConfigChangedEventPayload,
-  SpreadModeChangedEventPayload
+  SpreadModeChangedEventPayload,
+  PageRenderedEventPayload
 } from './EventTypes'
 interface Props {
   url: string;
+  pageInfo?: {
+    currentPage: number; setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  };
+  scaleInfo?: {
+    currentScale: number; setCurrentScale: React.Dispatch<React.SetStateAction<number>>;
+  };
   onBaseViewerInit?: (payload: BaseViewerInitEventPayload) => void;
   onPageChanging?: (payload: PageChangingEventPayload) => void;
   onRotationChanging?: (payload: RotationChangingEventPayload) => void;
@@ -30,10 +37,14 @@ interface Props {
   onUpdateViewArea?: (payload: UpdateViewAreaEventPayload) => void;
   onOptionalContentConfigChanged?: (payload: OptionalContentConfigChangedEventPayload) => void;
   onSpreadModeChanged?: (payload: SpreadModeChangedEventPayload) => void;
+  initialScale?: number;
+  initialPage?: number;
 }
 
 export const PDFJSViewer: React.FC<Props> = ({
   url,
+  pageInfo,
+  scaleInfo,
   onBaseViewerInit,
   onPageChanging,
   onRotationChanging,
@@ -44,25 +55,24 @@ export const PDFJSViewer: React.FC<Props> = ({
   onScaleChanging,
   onUpdateViewArea,
   onOptionalContentConfigChanged,
-  onSpreadModeChanged
+  onSpreadModeChanged,
+  initialScale,
+  initialPage
 }: Props) => {
   const [pdfViewer, setPdfViewer] = useState<PDFViewer>()
 
   useEffect(() => {
     if (pdfViewer) {
       if (onBaseViewerInit) pdfViewer.eventBus.on('baseviewerinit', onBaseViewerInit)
-      if (onPageChanging) pdfViewer.eventBus.on('pagechanging', onPageChanging)
       if (onRotationChanging) pdfViewer.eventBus.on('rotationchanging', onRotationChanging)
       if (onPagesDestroy) pdfViewer.eventBus.on('pagesdestroy', onPagesDestroy)
       if (onScrollModeChanged) pdfViewer.eventBus.on('scrollmodechanged', onScrollModeChanged)
       if (onPagesLoaded) pdfViewer.eventBus.on('pagesloaded', onPagesLoaded)
-      if (onPagesInit) pdfViewer.eventBus.on('pagesinit', onPagesInit)
-      if (onScaleChanging) pdfViewer.eventBus.on('scalechanging', onScaleChanging)
       if (onUpdateViewArea) pdfViewer.eventBus.on('updateviewarea', onUpdateViewArea)
       if (onOptionalContentConfigChanged) pdfViewer.eventBus.on('optionalcontentconfigchanged', onOptionalContentConfigChanged)
       if (onSpreadModeChanged) pdfViewer.eventBus.on('spreadmodechanged', onSpreadModeChanged)
     }
-  }, [pdfViewer])
+  }, [onBaseViewerInit, onOptionalContentConfigChanged, onPageChanging, onPagesDestroy, onPagesInit, onPagesLoaded, onRotationChanging, onScaleChanging, onScrollModeChanged, onSpreadModeChanged, onUpdateViewArea, pdfViewer])
 
   useEffect(() => {
     const urlChanged = async (): Promise<void> => {
@@ -77,23 +87,49 @@ export const PDFJSViewer: React.FC<Props> = ({
       urlChanged()
     }
   }, [url, pdfViewer])
+  React.useEffect(() => {
+    if (!pdfViewer) return
+    if (pageInfo?.currentPage && pageInfo.currentPage !== pdfViewer.currentPageNumber) {
+      pdfViewer.currentPageNumber = pageInfo.currentPage
+    }
+    if (scaleInfo?.currentScale && scaleInfo.currentScale !== pdfViewer.currentScale) {
+      pdfViewer.currentScale = scaleInfo.currentScale
+    }
+  }, [pageInfo?.currentPage, pdfViewer, scaleInfo?.currentScale])
   return (
-    <div
-      id='viewerContainer' style={{
-        overflow: 'auto',
-        position: 'absolute',
-        width: '100%',
-        height: '100%'
-      }}
-    >
+    <div id='asd' style={{ height: '100vh', width: '100vw', position: 'relative' }}>
       <div
-        id='viewer'
-        className='pdfViewer'
-        ref={(element): void => {
-          if (!element || pdfViewer) return
-          setPdfViewer(getPdfViewer())
+        id='viewerContainer' style={{
+          overflow: 'auto',
+          position: 'absolute',
+          width: '100%',
+          height: '100%'
         }}
-      />
+      >
+        <div
+          id='viewer'
+          className='pdfViewer'
+          ref={(element): void => {
+            if (!element || pdfViewer) return
+            const newPdfViewer = getPdfViewer()
+            newPdfViewer.eventBus.on('pagechanging', (payload: PageChangingEventPayload) => {
+              if (pageInfo?.currentPage && pageInfo.currentPage !== payload.pageNumber) pageInfo.setCurrentPage(payload.pageNumber)
+              onPageChanging && onPageChanging(payload)
+            })
+            newPdfViewer.eventBus.on('scalechanging', (payload: ScaleChangingEventPayload) => {
+              if (scaleInfo?.currentScale && scaleInfo.currentScale !== payload.scale) scaleInfo.setCurrentScale(payload.scale)
+              onScaleChanging && onScaleChanging(payload)
+            })
+            newPdfViewer.eventBus.on('pagesinit', (payload: PagesInitEventPayload) => {
+              console.log('ad')
+              newPdfViewer._setScale(initialScale || 1)
+              newPdfViewer.currentPageNumber = initialPage || 1
+              onPagesInit && onPagesInit(payload)
+            })
+            setPdfViewer(newPdfViewer)
+          }}
+        />
+      </div>
     </div>
   )
 }

@@ -1,19 +1,6 @@
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf'
 import * as pdfjsViewer from 'pdfjs-dist/legacy/web/pdf_viewer'
 import { GenericL10n, PDFViewer } from 'pdfjs-dist/legacy/web/pdf_viewer'
-import {
-  BaseViewerInitEventPayload,
-  PageChangingEventPayload,
-  PagesDestroyEventPayload,
-  PagesLoadedEventPayload,
-  PagesInitEventPayload,
-  RotationChangingEventPayload,
-  ScaleChangingEventPayload,
-  ScrollModeChangedEventPayload,
-  UpdateViewAreaEventPayload,
-  OptionalContentConfigChangedEventPayload,
-  SpreadModeChangedEventPayload
-} from './EventTypes'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
