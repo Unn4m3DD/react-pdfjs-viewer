@@ -1,8 +1,8 @@
 {
-  "name": "react-pdfjs-viewer",
+  "name": "@unn4m3dd/react-pdfjs-viewer",
   "version": "1.0.0",
   "description": "Pdfjs viewer package for react",
-  "author": "Unn4m3DD",
+  "author": "unn4m3dd",
   "license": "MIT",
   "repository": "Unn4m3DD/react-pdfjs-viewer",
   "main": "dist/index.js",

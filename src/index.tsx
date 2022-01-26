@@ -2,6 +2,8 @@ import { getDocument } from 'pdfjs-dist/legacy/build/pdf'
 import { PDFLinkService, PDFViewer } from 'pdfjs-dist/legacy/web/pdf_viewer'
 import React, { useEffect, useState } from 'react'
 import { getPdfViewer } from './pdfjs'
+const MIN_SCALE = .1
+const MAX_SCALE = 10
 import 'pdfjs-dist/web/pdf_viewer.css'
 import './styles.css'
 import {
@@ -89,11 +91,19 @@ export const PDFJSViewer: React.FC<Props> = ({
   }, [url, pdfViewer])
   React.useEffect(() => {
     if (!pdfViewer) return
-    if (pageInfo?.currentPage && pageInfo.currentPage !== pdfViewer.currentPageNumber) {
-      pdfViewer.currentPageNumber = pageInfo.currentPage
+    if (pageInfo?.currentPage !== undefined && pageInfo.currentPage !== pdfViewer.currentPageNumber) {
+      if (1 <= pageInfo.currentPage && pageInfo.currentPage <= pdfViewer.pagesCount) {
+        pdfViewer.currentPageNumber = pageInfo.currentPage
+      } else {
+        pageInfo.setCurrentPage(pdfViewer.currentPageNumber)
+      }
     }
-    if (scaleInfo?.currentScale && scaleInfo.currentScale !== pdfViewer.currentScale) {
-      pdfViewer.currentScale = scaleInfo.currentScale
+    if (scaleInfo?.currentScale !== undefined && scaleInfo.currentScale !== pdfViewer.currentScale) {
+      if (MIN_SCALE <= scaleInfo.currentScale && scaleInfo.currentScale <= MAX_SCALE) {
+        pdfViewer.currentScale = scaleInfo.currentScale
+      } else {
+        scaleInfo.setCurrentScale(pdfViewer.currentScale)
+      }
     }
   }, [pageInfo?.currentPage, pdfViewer, scaleInfo?.currentScale])
   return (
@@ -121,7 +131,6 @@ export const PDFJSViewer: React.FC<Props> = ({
               onScaleChanging && onScaleChanging(payload)
             })
             newPdfViewer.eventBus.on('pagesinit', (payload: PagesInitEventPayload) => {
-              console.log('ad')
               newPdfViewer._setScale(initialScale || 1)
               newPdfViewer.currentPageNumber = initialPage || 1
               onPagesInit && onPagesInit(payload)
