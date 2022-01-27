@@ -12,3 +12,60 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.toolbar {
+  position: absolute;
+  left: 3rem;
+  top: 50%;
+  width: 3rem;
+  transform: translate(0, -50%);
+  background-color: #6ac3ff;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.toolbar-button {
+
+  background-color: #6ac3ff;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.toolbar-button:hover {
+  background-color: #94d4ff;
+}
+
+.toolbar-input {
+  padding: 0;
+  background-color: #6ac3ff;
+  border: none;
+}
+
+.toolbar-input:hover {
+  background-color: #94d4ff;
+}
+
+.toolbar-item {
+  width: 3rem;
+  height: 3rem;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar-item:focus {
+  outline: none;
+}
