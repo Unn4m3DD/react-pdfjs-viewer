@@ -25,7 +25,8 @@ const App = () => {
   <PDFJSViewer url="/test.pdf"/>
 }
 ```
-https://user-images.githubusercontent.com/42273661/151424688-1e2b2f3a-26cc-483f-be21-30c80ebdf394.mp4
+![simplescreenrecorder-2022-01-27_18 50 37](https://user-images.githubusercontent.com/42273661/151424914-c1ba7193-5ed3-4902-a8af-f46ac60b4118.gif)
+
 ## PDFJSViewer Props
 
 | Property   |      Type      |  Default | Description |
