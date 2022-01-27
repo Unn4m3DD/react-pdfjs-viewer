@@ -14,6 +14,9 @@ or
 npm install @unn4m3dd/react-pdfjs-viewer
 ```
 
+
+
+
 ## Usage
 This snippet should give you a headstart on using react-pdfjs-viewer
 ```tsx
@@ -22,6 +25,7 @@ const App = () => {
   <PDFJSViewer url="/test.pdf"/>
 }
 ```
+https://user-images.githubusercontent.com/42273661/151424688-1e2b2f3a-26cc-483f-be21-30c80ebdf394.mp4
 ## PDFJSViewer Props
 
 | Property   |      Type      |  Default | Description |
