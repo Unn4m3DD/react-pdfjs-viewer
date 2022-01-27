@@ -1,0 +1,7 @@
+{
+  "setup": "cd example && yarn && yarn build",
+  "run": "&& serve -s example/build -l $PORT",
+  "title": "react-pdfjs-viewer example app",
+  "subtitle": "Example app using @unn4m3dd/react-pdfjs-viewer",
+  "video": "https://user-images.githubusercontent.com/42273661/151424688-1e2b2f3a-26cc-483f-be21-30c80ebdf394.mp4"
+}

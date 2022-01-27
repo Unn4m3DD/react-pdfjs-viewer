@@ -29,7 +29,7 @@ Keep in mind that you need to host this pdf since regular CORS rules apply.
 
 For further details of how to unlock the full potential of pdfjs I would suggest that you check out the source code for this [simple pdf viewer](https://github.com/Unn4m3DD/react-pdfjs-viewer/blob/master/example):
 ![simplescreenrecorder-2022-01-27_18 50 37](https://user-images.githubusercontent.com/42273661/151424914-c1ba7193-5ed3-4902-a8af-f46ac60b4118.gif)
-
+An instance of the viewer running can be found [here](https://react-pdfjs-viewer.unn4m3dd.xyz)
 ## PDFJSViewer Props
 
 | Property   |      Type      |  Default | Description |
