@@ -1,5 +1,1 @@
-This example was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-It is linked to the react-pdfjs-viewer package in the parent directory for development purposes.
-
-You can run `yarn install` and then `yarn start` to test your package.
+This is an example of usage of the package @unn4m3dd/react-pdfjs-viewer
