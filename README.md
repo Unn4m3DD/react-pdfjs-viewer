@@ -7,11 +7,11 @@
 ## Install
 
 ```bash
-yarn add react-pdfjs-viewer
+yarn add @unn4m3dd/react-pdfjs-viewer
 
 or
 
-npm install react-pdfjs-viewer
+npm install @unn4m3dd/react-pdfjs-viewer
 ```
 
 ## Usage
